@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrousel</title>
+    <style>
+
+        *, ::before, ::after{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+        }
+
+        .carrousel{
+            width: 100vh;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide{
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+        }
+
+        .slide > img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide[data-active]{
+            opacity: 1;
+        }
+
+        .carrousel-btn{
+            position: absolute;
+            z-index: 2;
+            background: none;
+            border: none;
+            font-size: 4rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            border-radius: .25rem;
+            padding: 0 .5rem;
+            background-color: rgba(0,0,0, 0.5);
+        }
+
+        .carrousel-btn:hover, .btn:focus{
+            color: white;
+            background-color: rgba(0,0,0, 0.2)
+        }
+
+        .carrousel-btn:focus{
+            outline: solid black 1px
+        }
+
+        .carrousel-btn.left{
+            left: 1rem;
+        }
+
+        .carrousel-btn.right{
+            right: 1rem;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <section aria-label="Newest Pics">
+        <div class="carrousel" data-carrousel>
+            <button class="carrousel-btn left" data-carrousel-button="left">&#8592;</button>
+            <button class="carrousel-btn right" data-carrousel-button="right">&#8594;</button>
+            <ul data-slides>
+                <li class="slide" data-active>
+                    <img src="https://images.unsplash.com/photo-1457364887197-9150188c107b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="picture 1">
+                </li>
+                <li class="slide">
+                    <img src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80" alt="picture 2">
+                </li>
+                <li class="slide">
+                    <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80" alt="picture 3">
+                </li>  
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        const btns = document.querySelectorAll('[data-carrousel-button]')
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const offset = btn.dataset.carouselButton === 'right' ? 1 : -1
+                const slides = btn
+                .closest('[data-carrousel')
+                .querySelector('[data-slides]')
+
+                const activeSlide =  slides.querySelector('[data-active]')
+                let newIndex = [...slides.children].indexOf(activeSlide) + offset
+                if (newIndex < 0) newIndex = slides.children.length - 1
+                if(newIndex >= slides.children.length) newIndex = 0
+                slides.children[newIndex].dataset.active = true
+                delete activeSlide.dataset.active
+            })
+        })
+    </script>
+    
+</body>
+</html>
