@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    img{
+        width: 100%;
+    }
+</style>
+<body>
+    <img height="300" width="1000" name="slide">
+
+    <script>
+        let i = 0;
+        let images = [];
+        let time = 2000;
+
+        images[0] = 'https://images.unsplash.com/photo-1488278905738-514111aa236c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+        images[1] = 'https://images.unsplash.com/photo-1529410804717-979530809e26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=669&q=80'
+        images[2] = 'https://images.unsplash.com/photo-1454123253751-1fe2b9e0c10d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+    
+    function changeImg(){
+        document.slide.src = images[i];
+        if(i < images.length - 1){
+            i++;
+        } else {
+            i = 0;
+        }
+        setTimeout('changeImg()', time)
+    }
+    window.onload = changeImg;
+    </script>
+</body>
+</html>
